@@ -4,19 +4,18 @@ from .models import Topic, Discussion, Comment
 # Model serializers
 class TopicSerializer(serializers.ModelSerializer):
 
-    user = serializers.CharField(source='user.username')
-
     class Meta:
 
-        model = Topic 
+        model = Topic
 
         fields = ['title', 'date_created', 'user']
 
+    def create(self, validated_data):
+        topic, created = Topic.objects.get_or_create(**validated_data)
+        return topic
+
 
 class DiscussionSerializer(serializers.ModelSerializer):
-
-    topic = serializers.CharField(source='topic.title')
-    user = serializers.CharField(source='user.username')
 
     class Meta:
 
@@ -24,14 +23,20 @@ class DiscussionSerializer(serializers.ModelSerializer):
 
         fields = ['title', 'content', 'date_created', 'user', 'topic']
 
+    def create(self, validated_data):
+        topic, created = Discussion.objects.get_or_create(**validated_data)
+        return topic
+
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    discussion = serializers.CharField(source='discussion.title')
-    user = serializers.CharField(source='user.username')
 
     class Meta:
 
         model = Comment
 
         fields = ['content', 'date_created', 'user', 'discussion']
+
+    def create(self, validated_data):
+        topic, created = Comment.objects.get_or_create(**validated_data)
+        return topic
