@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 # Topic model
 class Topic(models.Model):
 
-    # Fields 
+    # Fields
     title = models.CharField(max_length=255, unique=True, blank=False, null=False)
 
     date_created = models.DateTimeField(auto_now_add=True)
@@ -18,8 +18,11 @@ class Topic(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['id']
 
-# Discussion model 
+
+# Discussion model
 class Discussion(models.Model):
 
     # Fields
@@ -36,8 +39,11 @@ class Discussion(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['id']
 
-# Comment model 
+
+# Comment model
 class Comment(models.Model):
 
     # Fields
@@ -48,3 +54,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     discussion = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['id']

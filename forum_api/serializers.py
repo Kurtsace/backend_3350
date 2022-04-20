@@ -8,7 +8,7 @@ class TopicSerializer(serializers.ModelSerializer):
 
         model = Topic
 
-        fields = ['title', 'date_created', 'user']
+        fields = ['id','title', 'date_created', 'user']
 
     def create(self, validated_data):
         topic, created = Topic.objects.get_or_create(**validated_data)
@@ -21,7 +21,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
 
         model = Discussion
 
-        fields = ['title', 'content', 'date_created', 'user', 'topic']
+        fields = ['id','title', 'content', 'date_created', 'user', 'topic']
 
     def create(self, validated_data):
         topic, created = Discussion.objects.get_or_create(**validated_data)
@@ -35,7 +35,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
         model = Comment
 
-        fields = ['content', 'date_created', 'user', 'discussion']
+        fields = ['id','content', 'date_created', 'user', 'discussion']
 
     def create(self, validated_data):
         topic, created = Comment.objects.get_or_create(**validated_data)
